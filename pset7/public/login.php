@@ -13,6 +13,7 @@
     // else if user reached page via POST (as by submitting a form via POST)
     else if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
+        //$ins=CS50::query("UPDATE users SET hash = ? WHERE id = ?",password_hash("12345",PASSWORD_DEFAULT),9);
         // validate submission
         if (empty($_POST["username"]))
         {

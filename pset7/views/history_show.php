@@ -2,11 +2,12 @@
     <table class="table table-striped">
         <thead>
         <tr>
+            <th>Id</th>
+            <th>Type</th>
             <th>Symbol</th>
-            <th>Name</th>
             <th>Shares</th>
             <th>Price</th>
-            <th>TOTAL</th>
+            <th>Time</th>
         </tr>
         </thead>
         <tbody>
@@ -14,18 +15,15 @@
 
         <tr>
         
+            <td><?=$position["id"]?></td>
+            <td><?=$position["type"]?></td>
             <td><?= $position["symbol"] ?></td>
-            <td><?= $position["name"] ?></td>
             <td><?= $position["shares"] ?></td>
             <td><?= "$".$position["price"] ?></td>
-            <td><?= "$".number_format($position["price"]*$position["shares"],2) ?></td>
+            <td><?= $position["time"] ?></td>
         </tr>
 
         <?php endforeach ?>
-         <tr>
-        <td colspan="4">CASH</td>
-        <td><?="$".number_format($cash,2)?></td>
-    </tr>
         </tbody>
     </table>
 </div>

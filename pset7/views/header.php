@@ -22,6 +22,10 @@
         <script src="/js/bootstrap.min.js"></script>
 
         <script src="/js/scripts.js"></script>
+        
+        <style type="text/css">
+            tr { text-align:justify; }
+        </style>
 
     </head>
 
@@ -39,6 +43,7 @@
                         <li><a href="buy.php">Buy</a></li>
                         <li><a href="sell.php">Sell</a></li>
                         <li><a href="history.php">History</a></li>
+                        <li><a href="password.php">Password Reset</a></li>
                         <li><a href="logout.php"><strong>Log Out</strong></a></li>
                     </ul>
                 <?php endif ?>
