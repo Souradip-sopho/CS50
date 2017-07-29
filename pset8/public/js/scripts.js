@@ -74,7 +74,39 @@ $(function() {
  */
 function addMarker(place)
 {
-    // TODO
+    var latlng=new google.maps.LatLng(place["latitude"],place["longitude"]);
+    //var image = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+
+    var marker = new google.maps.Marker({
+    position: latlng,
+    title: place["place_name"],
+    //icon: image,
+    labelClass: "labels",
+    label: {
+        text: place["place_name"],
+        color: 'black',
+        fontSize: '12px'
+    },
+    map: map
+    });
+    
+    marker.setMap(map);
+    google.maps.event.addListener(marker, 'click', function() {
+        var url = '/articles.php?geo=' + place["postal_code"];
+        var content ="<ul>";
+        $.getJSON(url, function(data) {
+            $.each( data, function( i, data ) {
+                var items=[];
+                items.push( "<li> <a href=\"" + data.link +"\">"+ data.title + "</a></li>\n" );
+                content+=items;
+                });
+                content+="</ul>";
+                //alert(content);
+                showInfo(marker,content);
+            });
+        });
+        
+    markers.push(marker);
 }
 
 /**
@@ -108,7 +140,7 @@ function configure()
         source: search,
         templates: {
             empty: "no places found yet",
-            suggestion: _.template("<p>TODO</p>")
+            suggestion: _.template("<p><%- place_name %>, <%- admin_name1 %>, <%- postal_code %></p>")
         }
     });
 
@@ -159,7 +191,10 @@ function hideInfo()
  */
 function removeMarkers()
 {
-    // TODO
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+    markers=[];
 }
 
 /**
