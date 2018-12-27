@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Account Information
+{% endblock %}
+
+{% block main %}
+  {% if account_info %}
+      <h1>Hello <i style="font-family:Comic Sans MS;">{{ account_info["username"] }}</i>! Welcome to QuikBooks!</h1>
+  {% else %}
+      <h2>Welcome to QuikBooks !</h2></br>
+  {% endif %}
+  <div class="card">
+      <div class="card-body">
+          <h5 align="left"><span>Basic Account Information</span></h5>
+          <hr>
+          <div class="row">
+              <div class="col-sm-3" ><strong>User Name:</strong></div>
+              <div class="col-sm-3">{{account_info["username"]}}</div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="bot-border"></div>
+          {% if account_info["email"] %}
+            <div class="row">
+                <div class="col-sm-3" ><strong>Email :</strong></div>
+                <div class="col-sm-3">{{account_info["email"]}}</div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="bot-border"></div>
+          {% endif %}
+          {% if account_info["language"] %}
+            <div class="row">
+              <div class="col-sm-3" ><strong>Language:</strong></div>
+              <div class="col-sm-2">{{account_info["language"]}}</div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="bot-border"></div>
+          {% endif %}
+          {% if account_info["country"] %}
+            <div class="row">
+                <div class="col-sm-3" ><strong>Country :</strong></div>
+                <div class="col-sm-2">{{account_info["country"]}}</div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="bot-border"></div>
+          {% endif %}
+          <hr>
+          <div>
+              <h6 align="left">Reset Password</h6>
+              <p align="left">Want to reset your password? </p>
+              <button id="change_pass" type="button" class="btn btn-primary float-left" onclick="location.href = '/change_pwd';">Reset Password</button></br></br>
+          </div>
+          <hr>
+          <div>
+              <h6 align="left">Delete My Account</h6>
+              <p align="left">We’re sorry to see you go! Please note: Deletion of your account and personal data is permanent and cannot be undone.
+              QuikBooks will not be able to recover your account or the data that is deleted.</br>
+              <font color="red">Warning: Account deletion is permanent. Please read the above carefully before proceeding. This is an irreversible action, and you will no longer be able to use the same username on QuikBooks.</font>
+              </p>
+              <button id="btnDelete" type="button" class="btn btn-primary float-left" >Delete My Account</button>
+          </div>
+      </div>
+  </div>
+{% endblock %}

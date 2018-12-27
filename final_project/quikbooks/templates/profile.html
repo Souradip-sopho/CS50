@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+    {% if username %}
+      <h1>Hello <i style="font-family:Comic Sans MS;">{{ username }}</i>! Welcome to QuikBooks!</h1>
+    {% else %}
+      <h2>Welcome to QuikBooks !</h2></br>
+    {% endif %}
+    {% if user_info %}
+      <div class="card">
+          <div class="card-body">
+          	  <div class="row">
+                  <div class="col-md-12 ">
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                          <h5 style="color:black;">Your Profile</h5>
+                      </div>
+                  <form action="/update_profile" method="post">
+                      <!--<div class="image-container">
+                          {% if user_info["img_src"] %}
+                            <img id="imgProfile" alt="Avatar" class="avatar " src={{user_info["img_src"]}}>
+                            <div class="middle">
+                              <input type="button" class="btn btn-secondary" id="btnChangePicture" value="Change" />
+                              <input type="file" style="display: none;" id="profilePicture" name="file" />
+                            </div>
+                          {% else %}
+            						    <img id="imgProfile" alt="Avatar" class="avatar " src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNd3c20FBnScqDu0u7xKlHsNZyISKMf1hDzrQbjwndjiP22EfX">
+            						    <div class="middle">
+                              <input type="button" class="btn btn-secondary" id="btnChangePicture" value="Change" />
+                              <input type="file" style="display: none;" id="profilePicture" name="file" />
+                            </div>
+            						  {% endif %}
+            					</div>-->
+            					<div class="container">
+                          <div class="avatar-upload">
+                              <div class="avatar-edit">
+                                  <input type='file' id="imageUpload" name="imageUpload" accept=".png, .jpg, .jpeg" />
+                                  <label for="imageUpload"></label>
+                              </div>
+                              <div class="avatar-preview">
+                                  <div id="imagePreview" style="background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNd3c20FBnScqDu0u7xKlHsNZyISKMf1hDzrQbjwndjiP22EfX);">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      </br>
+                      <hr>
+                      <div class="row">
+                          <div class="col-sm-7" ><strong>User Name:</strong></div>
+                          <div class="col-sm-3">{{user_info["username"]}}</div>
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="bot-border"></div></br>
+                      <div class="row">
+                          <div class="col-sm-7" ><strong>Full Name:</strong></div>
+                          {% if user_info["full_name"] %}
+                            <div class="col-sm-3 form-group">
+                              <input id="fullname" name="fullname" placeholder='{{user_info["full_name"]}}' class="form-control here" type="text" pattern="[a-zA-Z0-9\s]+">
+                            </div>
+                          {% else %}
+                            <div class="col-sm-3 form-group">
+                              <input id="fullname" name="fullname" placeholder="Full Name" class="form-control here" type="text" pattern="[a-zA-Z0-9\s]+">
+                            </div>
+                          {% endif %}
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="bot-border"></div>
+                      <div class="row">
+                          <div class="col-sm-7" ><strong>Email:</strong></div>
+                          {% if user_info["email"] %}
+                            <div class="col-sm-3 form-group">
+                              <input id="email" name="email" placeholder={{user_info["email"]}} class="form-control here" type="text">
+                            </div>
+                          {% else %}
+                            <div class="col-sm-3 form-group">
+                              <input id="email" name="email" placeholder="Email" class="form-control here" type="text">
+                            </div>
+                          {% endif %}
+
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="bot-border"></div>
+                      <div class="row">
+                          <div class="col-sm-7 " ><strong>Website:</strong></div>
+                          {% if user_info["website"] %}
+                            <div class="col-sm-3 form-group">
+                              <input id="website" name="website" placeholder={{user_info["website"]}} class="form-control here" type="text">
+                            </div>
+                          {% else %}
+                            <div class="col-sm-3 form-group">
+                              <input id="website" name="website" placeholder="Website" class="form-control here" type="text">
+                            </div>
+                          {% endif %}
+
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="bot-border"></div>
+                      <div class="row">
+                          <div class="col-sm-7" ><strong>About Me:</strong></div>
+                          {% if user_info["about_me"] %}
+                            <div class="col-sm-4 form-group">
+                              <textarea id="aboutme" name="aboutme" cols="35" rows="4" class="form-control" placeholder={{user_info["about_me"]}}></textarea>
+                            </div>
+                          {% else %}
+                            <div class="col-sm-4 form-group">
+                              <textarea id="aboutme" name="aboutme" cols="35" rows="4" class="form-control" placeholder="Describe yourself here..."></textarea>
+                            </div>
+                          {% endif %}
+
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="bot-border"></div>
+                      <div class="form-group row">
+                        <div class="offset-2 col-8">
+                          <button id = "btnUpdate" name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+                        </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+    {% else %}
+      <h2>No Profile Info !!</h2></br>
+    {% endif %}
+{% endblock %}

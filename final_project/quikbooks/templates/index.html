@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Welcome
+{% endblock %}
+
+{% block main %}
+    {% if username %}
+      <h1>Hello <i style="font-family:Comic Sans MS;">{{ username }}</i>! Welcome to QuikBooks!</h1>
+    {% else %}
+      <h2>Welcome to QuikBooks !</h2></br>
+    {% endif %}
+
+    {% if details %}
+      <h3>Your Library</h3>
+      <h4 style="float:left;">Book Details :</h4></br></br>
+      <div id = "tb">
+          <table id="bookTable" class="table table-striped table-bordered hover" style="background-color:white;border-radius:5px;border-collapse: separate;">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Publisher</th>
+                <th>Year</th>
+                <th>Pages</th>
+                <th>Magnet Link</th>
+                <th>PDF Link</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for detail in details %}
+
+            <tr>
+
+                <td>{{detail["bookid"]}}</td>
+                <td>{{detail["title"]}}</td>
+                <td>{{detail["author"]}}</td>
+                {% if detail["publisher"] %}
+                    <td>{{detail["publisher"]}}</td>
+                {% else %}
+                    <td>&mdash;</td>
+                {% endif %}
+                <td>{{detail["year"]}}</td>
+                <td>{{detail["pages"]}}</td>
+                <td><a href={{detail["magnetlink"]}}>Link</a></td>
+                <td><a href={{detail["pdflink"]}}>Link</a></td>
+                <td><button id={{detail["bookid"]}} type="button" class="btn btn-danger">Remove</button></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+      <h2>No books yet! Add books to your Library !!</h2></br>
+    {% endif %}
+
+{% endblock %}
