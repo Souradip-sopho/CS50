@@ -38,11 +38,12 @@
             					<div class="container">
                           <div class="avatar-upload">
                               <div class="avatar-edit">
-                                  <input type='file' id="imageUpload" name="imageUpload" accept=".png, .jpg, .jpeg" />
+                                  <!--<input type='file' id="imageUpload" name="imageUpload" accept=".png, .jpg, .jpeg" />-->
+                                  <input type='url' id="imageUpload" name="imageUpload" />
                                   <label for="imageUpload"></label>
                               </div>
                               <div class="avatar-preview">
-                                  <div id="imagePreview" style="background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNd3c20FBnScqDu0u7xKlHsNZyISKMf1hDzrQbjwndjiP22EfX);">
+                                  <div id="imagePreview" style="background-image: url({{user_info["img_src"]}});">
                                   </div>
                               </div>
                           </div>
@@ -103,7 +104,7 @@
                           <div class="col-sm-7" ><strong>About Me:</strong></div>
                           {% if user_info["about_me"] %}
                             <div class="col-sm-4 form-group">
-                              <textarea id="aboutme" name="aboutme" cols="35" rows="4" class="form-control" placeholder={{user_info["about_me"]}}></textarea>
+                              <textarea id="aboutme" name="aboutme" cols="35" rows="4" class="form-control" placeholder="Describe yourself here...">{{user_info["about_me"]}}</textarea>
                             </div>
                           {% else %}
                             <div class="col-sm-4 form-group">

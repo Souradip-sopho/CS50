@@ -152,6 +152,10 @@ def get_involved():
 def profile():
     """view your profile"""
     uid = session["user_id"]
+    # data = request.get_json()
+    # if(data):
+    #     img_src = data["img_src"]
+    #     db.execute("UPDATE users SET img_src =:new_img_src WHERE id =:user_id",new_img_src=img_src,user_id=uid)
     user_info = db.execute("SELECT * FROM users WHERE id = :id",id=uid)
     username = user_info[0]["username"]
     return render_template("profile.html",username = username,user_info = user_info[0])
@@ -224,11 +228,14 @@ def search():
                 ids = book_ids,
                 fields ='MD5'
             )
-            response = requests.get(url = md5_url, params = params)
+            full_url = md5_url+'?ids='+book_ids+'&fields=MD5'
+            #response = requests.get(url = md5_url, params = params)
+            response = requests.get(url = full_url)
             response_text = response.text
-            response_text = response_text[2:]
+            #response_text = response_text[2:]
+            print(response_text)
             result = json.loads(response_text)
-            #print(result)
+            print(result)
             for detail in book_details:
                 md5[detail["id"]] = result[0]["md5"]
             #print(md5)
@@ -236,7 +243,16 @@ def search():
     else:
         return render_template("search.html",username = username)
 
-
+# @app.route('/addImgsrc', methods = ['POST'])
+# def addImgsrc():
+#     # read json + reply
+#     uid = session["user_id"]
+#     data = request.get_json()
+#     if(data):
+#         img_src = data["img_src"]
+#         print(img_src)
+#         db.execute("UPDATE users SET img_src =:new_img_src WHERE id =:user_id",new_img_src=img_src,user_id=uid)
+#     return redirect("/")
 
 @app.route('/addItem', methods = ['POST'])
 def addItem():
@@ -253,10 +269,14 @@ def addItem():
                 ids = book_id,
                 fields ='Title,Author,Publisher,Year,Pages,MD5'
             )
-            response = requests.get(url = md5_url, params = params)
+            full_url = md5_url+'?ids='+book_id+'&fields=Title,Author,Publisher,Year,Pages,MD5'
+            #response = requests.get(url = md5_url, params = params)
+            response = requests.get(url = full_url)
             response_text = response.text
-            response_text = response_text[2:]
+            #response_text = response_text[2:]
+            print(response_text)
             result = json.loads(response_text)
+            print(result)
             md5 = result[0]["md5"]
             mlink = "http://libgen.io/get.php?md5="+md5+"&oftorrent"
             pdflink = "http://libgen.io/get.php?md5="+md5
@@ -339,18 +359,18 @@ def update_profile():
         uid = session["user_id"]
         data = request.get_json()
         print(data)
-        if data:
+        if(data):
             img_src = data["img_src"]
             print(img_src)
-            db.execute("UPDATE users SET img_src = :img_src WHERE id=:uid", img_src=img_src,uid = uid)
+            db.execute("UPDATE users SET img_src =:new_img_src WHERE id =:user_id",new_img_src=img_src,user_id=uid)
         if request.form.get("fullname"):
             db.execute("UPDATE users SET full_name = :full_name WHERE id=:uid", full_name =request.form.get("fullname"),uid = uid)
         if request.form.get("email"):
             db.execute("UPDATE users SET email = :email WHERE id=:uid", email =request.form.get("email"),uid = uid)
         if request.form.get("website"):
             db.execute("UPDATE users SET website = :website WHERE id=:uid", website =request.form.get("website"),uid = uid)
-        if request.form.get("aboutme"):
-            db.execute("UPDATE users SET about_me = :aboutme WHERE id=:uid", aboutme =request.form.get("aboutme"),uid = uid)
+        #if request.form.get("aboutme"):
+        db.execute("UPDATE users SET about_me = :aboutme WHERE id=:uid", aboutme =request.form.get("aboutme"),uid = uid)
     return redirect("/settings/profile")
 
 def errorhandler(e):

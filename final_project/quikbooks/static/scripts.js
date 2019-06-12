@@ -8,7 +8,9 @@ $(document).ready(function() {
         if(conf == true)
         {
             sendDataRemove(this.id);
-            window.location.reload();
+            alert("Book Removed!");
+            window.location.reload(true);
+            //event.preventDefault();
         }
     });
 
@@ -19,8 +21,9 @@ $(document).ready(function() {
         //event.preventDefault();
     });
 
-    $("#imageUpload").change(function() {
-        readURL(this);
+    $("#imageUpload").click(function() {
+        //readURL(this);
+        getUrl();
         // var img = $('#imagePreview').css('background-image');
         // img = img.replace(/(url\(|\)|")/g, '');
         // $.ajax({
@@ -45,17 +48,28 @@ $(document).ready(function() {
 
 });
 
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
-            $('#imagePreview').hide();
-            $('#imagePreview').fadeIn(650);
-        }
-        reader.readAsDataURL(input.files[0]);
+function getUrl() {
+var url = prompt('Enter image URL');
+
+if (url) { // Do string and URL validation here and also for image type
+        $('#imagePreview').css('background-image', 'url('+url +')');
+        $('#imagePreview').hide();
+        $('#imagePreview').fadeIn(650);
+        sendDataImg(url);
     }
 }
+
+// function readURL(input) {
+//     if (input.files && input.files[0]) {
+//         var reader = new FileReader();
+//         reader.onload = function(e) {
+//             $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+//             $('#imagePreview').hide();
+//             $('#imagePreview').fadeIn(650);
+//         }
+//         reader.readAsDataURL(input.files[0]);
+//     }
+// }
 
 
 function sendDataRemove(param) {
@@ -87,5 +101,17 @@ function sendDataDelete() {
     $.ajax({
         url: '/delete_account',
         type: 'POST'
+    });
+}
+
+function sendDataImg(param){
+    $.ajax({
+        url: '/update_profile',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            img_src: param,
+        }),
+        dataType: 'json'
     });
 }
