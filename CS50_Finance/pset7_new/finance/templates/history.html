@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Transaction History
+{% endblock %}
+
+{% block main %}
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Transaction Id</th>
+                <th>Type</th>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in range(n) %}
+            <tr>
+                <td>{{history[i]["id"]}}</td>
+                <td>{{history[i]["type"]}}</td>
+                <td>{{history[i]["symbol"]}}</td>
+                <td>{{stocks[i]["name"]}}</td>
+                <td>{{history[i]["shares"]}}</td>
+                <td>${{history[i]["price"]}}</td>
+                <td>${{"{:,.2f}".format(history[i]["price"]*history[i]["shares"])}}</td>
+                <td>{{history[i]["time"]}}</td>
+            </tr>
+            {% endfor %} 
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
